@@ -709,7 +709,7 @@ class Token(models.Model):
 
 
 class Tracker(models.Model):
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=30, unique=True)
     is_in_chlog = models.BooleanField()
     position = models.IntegerField(blank=True, null=True)
     is_in_roadmap = models.BooleanField()
