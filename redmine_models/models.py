@@ -187,11 +187,11 @@ class CustomField(models.Model):
     is_for_all = models.BooleanField()
     is_filter = models.BooleanField()
     position = models.IntegerField(blank=True, null=True)
-    searchable = models.NullBooleanField()
+    searchable = models.BooleanField(null=True, blank=True)
     default_value = models.TextField(blank=True, null=True)
-    editable = models.NullBooleanField()
+    editable = models.BooleanField(null=True, blank=True)
     visible = models.BooleanField()
-    multiple = models.NullBooleanField()
+    multiple = models.BooleanField(null=True, blank=True)
     format_store = models.TextField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
 
@@ -491,7 +491,7 @@ class Message(models.Model):
     )
     created_on = models.DateTimeField()
     updated_on = models.DateTimeField()
-    locked = models.NullBooleanField()
+    locked = models.BooleanField(null=True, blank=True)
     sticky = models.IntegerField(blank=True, null=True)
 
     class Meta:
@@ -624,7 +624,7 @@ class Repository(models.Model):
     log_encoding = models.CharField(max_length=64, blank=True, null=True)
     extra_info = models.TextField(blank=True, null=True)
     identifier = models.CharField(max_length=1024, blank=True, null=True)
-    is_default = models.NullBooleanField()
+    is_default = models.BooleanField(null=True, blank=True)
     created_on = models.DateTimeField(blank=True, null=True)
 
     class Meta:
@@ -635,7 +635,7 @@ class Repository(models.Model):
 class Role(models.Model):
     name = models.CharField(max_length=30)
     position = models.IntegerField(blank=True, null=True)
-    assignable = models.NullBooleanField()
+    assignable = models.BooleanField(null=True, blank=True)
     builtin = models.IntegerField()
     permissions = models.TextField(blank=True, null=True)
     issues_visibility = models.CharField(max_length=30)
@@ -725,7 +725,7 @@ class Tracker(models.Model):
 class UserPreference(models.Model):
     user = models.ForeignKey("User", on_delete=models.RESTRICT)
     others = models.TextField(blank=True, null=True)
-    hide_mail = models.NullBooleanField()
+    hide_mail = models.BooleanField(null=True, blank=True)
     time_zone = models.CharField(max_length=1024, blank=True, null=True)
 
     class Meta:
