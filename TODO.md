@@ -1,0 +1,1 @@
+- add a `unique` constraint to all unique field names
