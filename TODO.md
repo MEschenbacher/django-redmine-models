@@ -1,1 +1,2 @@
 - add a `unique` constraint to all unique field names
+- check if current version of redmine 4.1 or 4.2 is matches the django models
