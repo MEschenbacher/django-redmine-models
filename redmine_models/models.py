@@ -29,7 +29,7 @@ class Attachment(models.Model):
 
 class AuthSource(models.Model):
     type = models.CharField(max_length=30)
-    name = models.CharField(max_length=60)
+    name = models.CharField(max_length=60, unique=True)
     host = models.CharField(max_length=60, blank=True, null=True)
     port = models.IntegerField(blank=True, null=True)
     account = models.CharField(max_length=1024, blank=True, null=True)
@@ -198,6 +198,7 @@ class CustomField(models.Model):
     class Meta:
         managed = redmine_models_managed
         db_table = "custom_fields"
+        unique_together = (("name", "type"),)
 
 
 class CustomFieldProject(models.Model):
@@ -255,7 +256,7 @@ class Document(models.Model):
 
 class EmailAddress(models.Model):
     user = models.ForeignKey("User", on_delete=models.RESTRICT)
-    address = models.CharField(max_length=1024)
+    address = models.CharField(max_length=1024, unique=True)
     is_default = models.BooleanField()
     notify = models.BooleanField()
     created_on = models.DateTimeField()
@@ -273,6 +274,7 @@ class EnabledModule(models.Model):
     class Meta:
         managed = redmine_models_managed
         db_table = "enabled_modules"
+        unique_together = (("name", "project"),)
 
 
 class Enumeration(models.Model):
@@ -297,6 +299,7 @@ class Enumeration(models.Model):
     class Meta:
         managed = redmine_models_managed
         db_table = "enumerations"
+        unique_together = (("name", "type", "project"),)
 
 
 class GroupUser(models.Model):
@@ -343,6 +346,7 @@ class IssueCategory(models.Model):
     class Meta:
         managed = redmine_models_managed
         db_table = "issue_categories"
+        unique_together = (("name", "project"),)
 
 
 class IssueRelation(models.Model):
@@ -360,7 +364,7 @@ class IssueRelation(models.Model):
 
 
 class IssueStatus(models.Model):
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=30, unique=True)
     is_closed = models.BooleanField()
     position = models.IntegerField(blank=True, null=True)
     default_done_ratio = models.IntegerField(blank=True, null=True)
@@ -544,7 +548,7 @@ class Project(models.Model):
     parent = models.ForeignKey("Project", blank=True, null=True, on_delete=models.RESTRICT)
     created_on = models.DateTimeField(blank=True, null=True)
     updated_on = models.DateTimeField(blank=True, null=True)
-    identifier = models.CharField(max_length=1024, blank=True, null=True)
+    identifier = models.CharField(max_length=1024, blank=True, null=True, unique=True)
     status = models.IntegerField()
     lft = models.ForeignKey(
         "Project",
@@ -668,7 +672,7 @@ class SchemaMigration(models.Model):
 
 
 class Setting(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     value = models.TextField(blank=True, null=True)
     updated_on = models.DateTimeField(blank=True, null=True)
 
@@ -734,7 +738,7 @@ class UserPreference(models.Model):
 
 
 class User(models.Model):
-    login = models.CharField(max_length=1024)
+    login = models.CharField(max_length=1024, unique=True)
     hashed_password = models.CharField(max_length=40)
     firstname = models.CharField(max_length=30)
     lastname = models.CharField(max_length=255)
@@ -822,6 +826,7 @@ class WikiPage(models.Model):
     class Meta:
         managed = redmine_models_managed
         db_table = "wiki_pages"
+        unique_together = (("title", "wiki"),)
 
 
 class WikiRedirect(models.Model):
