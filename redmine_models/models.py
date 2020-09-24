@@ -743,6 +743,10 @@ class User(models.Model):
     firstname = models.CharField(max_length=30)
     lastname = models.CharField(max_length=255)
     admin = models.BooleanField()
+    # 0 anon
+    # 1 active
+    # 2 registered
+    # 3 locked
     status = models.IntegerField()
     last_login_on = models.DateTimeField(blank=True, null=True)
     language = models.CharField(max_length=5, blank=True, null=True)
