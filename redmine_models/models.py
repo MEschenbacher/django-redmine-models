@@ -123,7 +123,7 @@ class Comment(models.Model):
     commented_type = models.CharField(max_length=30)
     commented_id = models.IntegerField()
     author = models.ForeignKey("User", on_delete=models.RESTRICT)
-    comments = models.TextField(blank=True, null=True)
+    content = models.TextField(blank=True, null=True)
     created_on = models.DateTimeField()
     updated_on = models.DateTimeField()
 
