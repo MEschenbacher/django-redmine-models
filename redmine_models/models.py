@@ -85,12 +85,13 @@ class Change(models.Model):
 
 
 class ChangesetParent(models.Model):
-    changeset = models.ForeignKey("Changeset", on_delete=models.RESTRICT)
-    parent = models.IntegerField("Changeset")
+    changeset = models.ForeignKey("Changeset", primary_key=True, on_delete=models.RESTRICT)
+    parent = models.IntegerField("Changeset", primary_key=True)
 
     class Meta:
         managed = redmine_models_managed
         db_table = "changeset_parents"
+        unique_together = (("changeset", "parent"),)
 
 
 class Changeset(models.Model):
