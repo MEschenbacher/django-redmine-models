@@ -417,6 +417,31 @@ class Issue(models.Model):
         managed = redmine_models_managed
         db_table = "issues"
 
+    @classmethod
+    def rebuild_tree(cls):
+        """
+        rebuild the integer infix notation for the whole issue tree
+        """
+
+        left = 1
+        for root in cls.objects.filter(parent__isnull=True):
+            left = cls._rebuild_tree_helper(root, root, left)
+
+    @classmethod
+    def _rebuild_tree_helper(self, root, parent, left)
+        parent.root = root
+        parent.left = left
+        left += 1
+        parent.save()
+
+        for issue in parent.children_set.all():
+            left = cls._rebuild_tree_helper(root, issue, left)
+
+        parent.rgt = left
+        parent.save()
+
+        return left
+
 
 class JournalDetail(models.Model):
     journal = models.ForeignKey("Journal", on_delete=models.RESTRICT)
