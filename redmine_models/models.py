@@ -531,7 +531,12 @@ class Project(models.Model):
     description = models.TextField(blank=True, null=True)
     homepage = models.CharField(max_length=1024, blank=True, null=True)
     is_public = models.BooleanField()
-    parent = models.ForeignKey("Project", blank=True, null=True, on_delete=models.RESTRICT)
+    parent = models.ForeignKey("Project",
+        related_name="children",
+        blank=True,
+        null=True,
+        on_delete=models.RESTRICT,
+    )
     created_on = models.DateTimeField(blank=True, null=True)
     updated_on = models.DateTimeField(blank=True, null=True)
     identifier = models.CharField(max_length=1024, blank=True, null=True, unique=True)
