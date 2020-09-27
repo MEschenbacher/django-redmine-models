@@ -536,22 +536,8 @@ class Project(models.Model):
     updated_on = models.DateTimeField(blank=True, null=True)
     identifier = models.CharField(max_length=1024, blank=True, null=True, unique=True)
     status = models.IntegerField()
-    lft = models.ForeignKey(
-        "Project",
-        db_column="lft",
-        related_name="right",
-        blank=True,
-        null=True,
-        on_delete=models.RESTRICT,
-    )
-    rgt = models.ForeignKey(
-        "Project",
-        db_column="rgt",
-        related_name="left",
-        blank=True,
-        null=True,
-        on_delete=models.RESTRICT,
-    )
+    lft = models.IntegerField(blank=True, null=True)
+    rgt = models.IntegerField(blank=True, null=True)
     inherit_members = models.BooleanField()
     default_version = models.ForeignKey(
         "Version",
