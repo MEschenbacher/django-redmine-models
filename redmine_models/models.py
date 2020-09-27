@@ -408,22 +408,8 @@ class Issue(models.Model):
         on_delete=models.RESTRICT,
     )
     root = models.ForeignKey("Issue", blank=True, null=True, on_delete=models.RESTRICT)
-    lft = models.ForeignKey(
-        "Issue",
-        db_column="lft",
-        related_name="right",
-        blank=True,
-        null=True,
-        on_delete=models.RESTRICT,
-    )
-    rgt = models.ForeignKey(
-        "Issue",
-        db_column="rgt",
-        related_name="left",
-        blank=True,
-        null=True,
-        on_delete=models.RESTRICT,
-    )
+    lft = models.IntegerField(blank=True, null=True)
+    rgt = models.IntegerField(blank=True, null=True)
     is_private = models.BooleanField()
     closed_on = models.DateTimeField(blank=True, null=True)
 
