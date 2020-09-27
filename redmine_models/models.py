@@ -430,12 +430,12 @@ class Issue(models.Model):
     @classmethod
     def _rebuild_tree_helper(self, root, parent, left)
         parent.root = root
-        parent.left = left
+        parent.lft = left
         left += 1
         parent.save()
 
-        for issue in parent.children_set.all():
-            left = cls._rebuild_tree_helper(root, issue, left)
+        for child in parent.children_set.all():
+            left = cls._rebuild_tree_helper(root, child, left)
 
         parent.rgt = left
         parent.save()
