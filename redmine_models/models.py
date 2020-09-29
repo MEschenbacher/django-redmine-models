@@ -423,9 +423,8 @@ class Issue(models.Model):
         rebuild the integer infix notation for the whole issue tree
         """
 
-        left = 1
         for root in cls.objects.filter(parent__isnull=True):
-            left = cls._rebuild_tree_helper(root, root, left)
+            left = cls._rebuild_tree_helper(root, root, 1)
 
     @classmethod
     def _rebuild_tree_helper(self, root, parent, left)
