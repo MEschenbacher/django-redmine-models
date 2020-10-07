@@ -662,7 +662,12 @@ class Setting(models.Model):
 
 class TimeEntry(models.Model):
     project = models.ForeignKey(Project, on_delete=models.RESTRICT)
-    author = models.ForeignKey("User", on_delete=models.RESTRICT, blank=True, null=True)
+    author = models.ForeignKey("User",
+        on_delete=models.RESTRICT,
+        blank=True,
+        null=True,
+        related_name='authors',
+    )
     user = models.ForeignKey("User", on_delete=models.RESTRICT)
     issue = models.ForeignKey(Issue, blank=True, null=True, on_delete=models.RESTRICT)
     hours = models.FloatField()
