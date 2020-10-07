@@ -119,6 +119,20 @@ class ChangesetsIssue(models.Model):
         unique_together = (("changeset", "issue"),)
 
 
+class Checklist(models.Model):
+    is_done = models.BooleanField(default=False)
+    subject = models.CharField(max_length=255, blank=True, null=True, default=None)
+    position = models.IntegerField(default=1)
+    issue = models.ForeignKey("Issue", on_delete=models.RESTRICT)
+    created_at = models.DateTimeField(blank=True, null=True, default=None)
+    updated_at = models.DateTimeField(blank=True, null=True, default=None)
+    is_section = models.BooleanField(default=False)
+
+    class Meta:
+        managed = redmine_models_managed
+        db_table = "checklists"
+
+
 class Comment(models.Model):
     commented_type = models.CharField(max_length=30)
     commented_id = models.IntegerField()
