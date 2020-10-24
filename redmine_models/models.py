@@ -615,7 +615,7 @@ class Repository(models.Model):
 
 
 class Role(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=30)
     position = models.IntegerField(blank=True, null=True)
     assignable = models.BooleanField(null=True, blank=True)
     builtin = models.IntegerField()
@@ -662,7 +662,6 @@ class Setting(models.Model):
 
 class TimeEntry(models.Model):
     project = models.ForeignKey(Project, on_delete=models.RESTRICT)
-    author = models.ForeignKey("User", on_delete=models.RESTRICT, blank=True, null=True)
     user = models.ForeignKey("User", on_delete=models.RESTRICT)
     issue = models.ForeignKey(Issue, blank=True, null=True, on_delete=models.RESTRICT)
     hours = models.FloatField()
@@ -694,7 +693,6 @@ class Token(models.Model):
 
 class Tracker(models.Model):
     name = models.CharField(max_length=30)
-    description = models.TextField(blank=True, null=True)
     is_in_chlog = models.BooleanField()
     position = models.IntegerField(blank=True, null=True)
     is_in_roadmap = models.BooleanField()
